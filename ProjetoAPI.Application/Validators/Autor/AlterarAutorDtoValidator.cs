@@ -1,11 +1,5 @@
 ﻿using FluentValidation;
-using ProjetoAPI.Application.DTOs.Assunto;
 using ProjetoAPI.Application.DTOs.Autor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjetoAPI.Application.Validators.Autor
 {
@@ -18,7 +12,7 @@ namespace ProjetoAPI.Application.Validators.Autor
 
             RuleFor(x => x.Nome)
                 .NotEmpty().WithMessage("O nome é obrigatório.")
-                .MaximumLength(20).WithMessage("O nome deve ter no máximo 40 caracteres.");
+                .MaximumLength(40).WithMessage("O nome deve ter no máximo 40 caracteres.");
 
         }
     }

@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ProjetoAPI.Application.Commands.Autor;
-using ProjetoAPI.Application.Queries.Autor;
 using ProjetoAPI.Infrastructure;
 using AutorEntity = ProjetoAPI.Domain.Entities.Autor;
 

@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using ProjetoAPI.Application.Commands.Autor;
 using ProjetoAPI.Infrastructure;
-using System.Reflection.Metadata.Ecma335;
 using AutorEntity = ProjetoAPI.Domain.Entities.Autor;
 
 namespace ProjetoAPI.Application.Handlers.Commands.Autor

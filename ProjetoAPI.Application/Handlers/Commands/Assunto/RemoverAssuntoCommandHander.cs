@@ -1,12 +1,6 @@
 ﻿using MediatR;
 using ProjetoAPI.Application.Commands.Assunto;
 using ProjetoAPI.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AssuntoEntity = ProjetoAPI.Domain.Entities.Assunto;
 
 namespace ProjetoAPI.Application.Handlers.Commands.Assunto
 {

@@ -19,11 +19,11 @@ namespace ProjetoAPI.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAuthors()
+        public async Task<IActionResult> GetAll()
         {
             var query = new BuscarAutoresQuery();
-            var authors = await _mediator.Send(query);
-            return Ok(authors);
+            var autores = await _mediator.Send(query);
+            return Ok(autores);
         }
 
         [HttpGet("{id}")]
@@ -31,16 +31,14 @@ namespace ProjetoAPI.API.Controllers
         {
             var query = new BuscarAutorPorIdQuery(id);
             var autor = await _mediator.Send(query);
-            if (autor == null)
-                return NotFound();
-
+            if (autor == null) return NotFound();
             return Ok(autor);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAuthor([FromBody] CriarAutorDto dto)
+        public async Task<IActionResult> CreateAuthor([FromBody] CriarAutorDto autorDto)
         {
-            var command = new CriarAutorCommand(dto);
+            var command = new CriarAutorCommand(autorDto);
             var id = await _mediator.Send(command);
             return Ok(new { id });
         }

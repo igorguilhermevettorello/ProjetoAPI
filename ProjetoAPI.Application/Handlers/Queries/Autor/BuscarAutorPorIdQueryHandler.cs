@@ -1,13 +1,6 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using ProjetoAPI.Application.Queries.Autor;
-using ProjetoAPI.Domain.Entities;
 using ProjetoAPI.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutorEntity = ProjetoAPI.Domain.Entities.Autor;
 
 namespace ProjetoAPI.Application.Handlers.Queries.Autor
