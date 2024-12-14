@@ -7,16 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Handlers\Commands\Autor\" />
-    <Folder Include="Handlers\Commands\Assunto\" />
-    <Folder Include="Handlers\Queries\Autor\" />
     <Folder Include="Handlers\Queries\Assunto\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="MediatR" Version="10.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjetoAPI.Domain\ProjetoAPI.Domain.csproj" />
+    <ProjectReference Include="..\ProjetoAPI.Infrastructure\ProjetoAPI.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

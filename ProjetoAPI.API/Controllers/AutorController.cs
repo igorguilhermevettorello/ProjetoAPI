@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProjetoAPI.Domain.Entities;
-using ProjetoAPI.Infrastructure;
-using System;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using ProjetoAPI.Application.Commands.Autor;
+using ProjetoAPI.Application.DTOs.Autor;
+using ProjetoAPI.Application.Queries.Autor;
 
 namespace ProjetoAPI.API.Controllers
 {
@@ -10,81 +10,59 @@ namespace ProjetoAPI.API.Controllers
     [ApiController]
     public class AutorController : ControllerBase
     {
-        
-        private readonly ApplicationDbContext _context;
 
-        public AutorController(ApplicationDbContext context)
+        private readonly IMediator _mediator;
+
+        public AutorController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
-        // GET: api/authors
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAuthors()
         {
-            var authors = await _context.Autor.ToListAsync();
+            var query = new BuscarAutoresQuery();
+            var authors = await _mediator.Send(query);
             return Ok(authors);
         }
 
-        // GET: api/authors/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var author = await _context.Autor.FindAsync(id);
-            if (author == null)
+            var query = new BuscarAutorPorIdQuery(id);
+            var autor = await _mediator.Send(query);
+            if (autor == null)
                 return NotFound();
 
-            return Ok(author);
+            return Ok(autor);
         }
 
-        // POST: api/authors
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Autor author)
+        public async Task<IActionResult> CreateAuthor([FromBody] CriarAutorDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            _context.Autor.Add(author);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetById), new { id = author.Id }, author);
+            var command = new CriarAutorCommand(dto);
+            var id = await _mediator.Send(command);
+            return Ok(new { id });
         }
 
-        // PUT: api/authors/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] Autor updatedAuthor)
+        public async Task<IActionResult> Update(Guid id, [FromBody] AlterarAutorDto autorDto)
         {
-            if (id != updatedAuthor.Id)
-                return BadRequest();
-
-            _context.Entry(updatedAuthor).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Autor.Any(e => e.Id == id))
-                    return NotFound();
-
-                throw;
-            }
-
+            if (id != autorDto.Id) return BadRequest();
+            var command = new AlterarAutorCommand(autorDto);
+            await _mediator.Send(command);
             return NoContent();
         }
 
-        // DELETE: api/authors/{id}
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var author = await _context.Autor.FindAsync(id);
-            if (author == null)
-                return NotFound();
-
-            _context.Autor.Remove(author);
-            await _context.SaveChangesAsync();
-
+            var query = new BuscarAutorPorIdQuery(id);
+            var autor = await _mediator.Send(query);
+            if (autor == null) return NotFound();
+            var command = new RemoverAutorCommand(id);
+            await _mediator.Send(command);
             return NoContent();
         }
     }
