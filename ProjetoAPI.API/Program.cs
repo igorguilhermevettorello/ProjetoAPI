@@ -19,6 +19,7 @@ using ProjetoAPI.Infrastructure.Repositories;
 using ProjetoAPI.Domain.Interfaces.Livro;
 using ProjetoAPI.Infrastructure.Repositories.Assunto;
 using ProjetoAPI.Domain.Interfaces.Assunto;
+using ProjetoAPI.Application.Commands.Livros;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +49,12 @@ builder.Services.AddMediatR(typeof(AlterarAssuntoCommand).Assembly);
 builder.Services.AddMediatR(typeof(RemoverAssuntoCommand).Assembly);
 builder.Services.AddMediatR(typeof(BuscarAssuntosQuery).Assembly);
 builder.Services.AddMediatR(typeof(BuscarAssuntoPorIdQuery).Assembly);
+
+builder.Services.AddMediatR(typeof(CriarLivroCommand).Assembly);
+builder.Services.AddMediatR(typeof(AlterarLivroCommand).Assembly);
+builder.Services.AddMediatR(typeof(RemoverLivroCommand).Assembly);
+builder.Services.AddMediatR(typeof(BuscarLivrosQuery).Assembly);
+builder.Services.AddMediatR(typeof(BuscarLivroPorIdQuery).Assembly);
 
 builder.Services.AddFluentValidationAutoValidation(); // Habilita validação automática
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

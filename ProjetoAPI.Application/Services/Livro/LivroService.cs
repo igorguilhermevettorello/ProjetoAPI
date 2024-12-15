@@ -1,4 +1,5 @@
-﻿using ProjetoAPI.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoAPI.Domain.Entities;
 using ProjetoAPI.Domain.Interfaces.Assunto;
 using ProjetoAPI.Domain.Interfaces.Livro;
 using ProjetoAPI.Infrastructure.Repositories.Livro;
@@ -16,27 +17,25 @@ namespace ProjetoAPI.Application.Services.Livro
             _autorRepository = autorRepository;
         }
 
-        public bool ValidarAssuntos(List<Guid> assuntoIds)
+        public async Task<bool> ValidarAssuntos(List<Guid> assuntoIds)
         {
             var verificacao = true;
-            assuntoIds.ForEach(async assuntoId =>
+            foreach (var id in assuntoIds)
             {
-                var assunto = await _assuntoRepository.GetByIdAsync(assuntoId);
-                if (assunto == null) verificacao = false;
-            });
-
+                var assunto = await _assuntoRepository.GetByIdAsync(id);
+                if (assunto == null) verificacao = false;   
+            }
             return verificacao;
         }
 
-        public bool ValidarAutores(List<Guid> autorIds)
+        public async Task<bool> ValidarAutores(List<Guid> autorIds)
         {
             var verificacao = true;
-            autorIds.ForEach(async autorId =>
+            foreach (var id in autorIds)
             {
-                var autor = await _autorRepository.GetByIdAsync(autorId);
-                if (autor == null) verificacao = false;
-            });
-
+                var assunto = await _autorRepository.GetByIdAsync(id);
+                if (assunto == null) verificacao = false;
+            }
             return verificacao;
         }
     }

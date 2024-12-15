@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoAPI.Application.Commands.Livros
 {
-    public class AlterarLivroCommand : IRequest<Unit>
+    public class AlterarLivroCommand : IRequest<RetornoAlterarLivroDto>
     {
         public AlterarLivroDto LivroDto { get; }
 

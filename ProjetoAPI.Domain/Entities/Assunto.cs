@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ProjetoAPI.Domain.Entities
 {
@@ -9,6 +10,7 @@ namespace ProjetoAPI.Domain.Entities
         [Required]
         [StringLength(20)]
         public string Descricao { get; set; }
+        [JsonIgnore]
         public ICollection<Livro> Livros { get; set; } = new List<Livro>();
     }
 }

@@ -22,7 +22,7 @@ namespace ProjetoAPI.Application.Handlers.Commands.Livro
         public async Task<RetornoCriarLivroDto> Handle(CriarLivroCommand request, CancellationToken cancellationToken)
         {
 
-            var verifAssunto = _livroService.ValidarAssuntos(request.LivroDto.AssuntoIds);
+            var verifAssunto = await _livroService.ValidarAssuntos(request.LivroDto.AssuntoIds);
             if (!verifAssunto) 
             {
                 return new RetornoCriarLivroDto
@@ -31,7 +31,7 @@ namespace ProjetoAPI.Application.Handlers.Commands.Livro
                     Mensagem = "Existe(m) assunto(s) não cadastrado(s) no sistema"
                 };
             }
-            var verifAutor = _livroService.ValidarAutores(request.LivroDto.AutorIds);
+            var verifAutor = await _livroService.ValidarAutores(request.LivroDto.AutorIds);
             if (!verifAutor)
             {
                 return new RetornoCriarLivroDto

@@ -24,7 +24,9 @@ namespace ProjetoAPI.Application.Handlers.Commands.Assunto
                 Descricao = request.AssuntoDto.Descricao
             };
 
-            _context.Entry(assunto).State = EntityState.Modified;
+            //_context.Entry(assunto).State = EntityState.Modified;
+            //await _context.SaveChangesAsync();
+            _context.Assunto.Update(assunto);
             await _context.SaveChangesAsync();
 
             return Unit.Value;

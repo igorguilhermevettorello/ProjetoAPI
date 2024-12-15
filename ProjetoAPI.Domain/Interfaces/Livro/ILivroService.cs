@@ -8,7 +8,7 @@ namespace ProjetoAPI.Domain.Interfaces.Livro
 {
     public interface ILivroService
     {
-        bool ValidarAutores(List<Guid> autoresIds);
-        bool ValidarAssuntos(List<Guid> assuntosIds);
+        Task<bool> ValidarAutores(List<Guid> autoresIds);
+        Task<bool> ValidarAssuntos(List<Guid> assuntosIds);
     }
 }
