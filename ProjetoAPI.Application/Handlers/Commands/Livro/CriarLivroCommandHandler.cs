@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProjetoAPI.Application.Commands.Livros;
 using ProjetoAPI.Application.DTOs.Livro;
-using ProjetoAPI.Domain.Interfaces.Autor;
+using ProjetoAPI.Domain.Interfaces.Livro;
 using ProjetoAPI.Infrastructure;
 using LivroEntity = ProjetoAPI.Domain.Entities.Livro;
 
@@ -21,14 +21,33 @@ namespace ProjetoAPI.Application.Handlers.Commands.Livro
 
         public async Task<RetornoCriarLivroDto> Handle(CriarLivroCommand request, CancellationToken cancellationToken)
         {
-            var assunto = _livroService.ValidarAssuntos();
+
+            var verifAssunto = _livroService.ValidarAssuntos(request.LivroDto.AssuntoIds);
+            if (!verifAssunto) 
+            {
+                return new RetornoCriarLivroDto
+                {
+                    Status = false,
+                    Mensagem = "Existe(m) assunto(s) não cadastrado(s) no sistema"
+                };
+            }
+            var verifAutor = _livroService.ValidarAutores(request.LivroDto.AutorIds);
+            if (!verifAutor)
+            {
+                return new RetornoCriarLivroDto
+                {
+                    Status = false,
+                    Mensagem = "Existe(m) autor(es) não cadastrado(s) no sistema"
+                };
+            }
 
             var livro = new LivroEntity
             {
                 Titulo = request.LivroDto.Titulo,
                 Editora = request.LivroDto.Editora,
                 Edicao = request.LivroDto.Edicao,
-                //AnoPublicao = request.LivroDto.AnoPublicao,
+                AnoPublicacao = request.LivroDto.AnoPublicacao,
+                Valor = request.LivroDto.Valor
             };
 
             // Buscar e associar os Autores
@@ -43,7 +62,11 @@ namespace ProjetoAPI.Application.Handlers.Commands.Livro
 
             _context.Livro.Add(livro);
             await _context.SaveChangesAsync(cancellationToken);
-            return livro.Id;
+            return new RetornoCriarLivroDto
+            {
+                Status = true,
+                Id = livro.Id
+            };
         }
     }
 }

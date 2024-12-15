@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjetoAPI.Domain.Interfaces.Autor
+namespace ProjetoAPI.Domain.Interfaces.Livro
 {
     public interface ILivroService
     {
-        bool ValidarAutores(decimal valor);
-        bool ValidarAssuntos(decimal valor);
+        bool ValidarAutores(List<Guid> autoresIds);
+        bool ValidarAssuntos(List<Guid> assuntosIds);
     }
 }

@@ -12,11 +12,13 @@ using ProjetoAPI.Application.Validators.Assunto;
 using ProjetoAPI.Application.Validators.Autor;
 using ProjetoAPI.Application.Commands.Assunto;
 using ProjetoAPI.Application.Queries.Assunto;
-using ProjetoAPI.Domain.Interfaces.Autor;
 using ProjetoAPI.Application.Services.Livro;
 using ProjetoAPI.Domain.Interfaces;
 using ProjetoAPI.Infrastructure.Repositories.Livro;
 using ProjetoAPI.Infrastructure.Repositories;
+using ProjetoAPI.Domain.Interfaces.Livro;
+using ProjetoAPI.Infrastructure.Repositories.Assunto;
+using ProjetoAPI.Domain.Interfaces.Assunto;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +68,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<ILivroService, LivroService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IAutorRepository, AutorRepository>();
+builder.Services.AddScoped<IAssuntoRepository, AssuntoRepository>();
 builder.Services.AddScoped<ILivroRepository, LivroRepository>();
 
 var app = builder.Build();
