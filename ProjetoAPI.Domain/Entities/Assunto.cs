@@ -9,5 +9,6 @@ namespace ProjetoAPI.Domain.Entities
         [Required]
         [StringLength(20)]
         public string Descricao { get; set; }
+        public ICollection<Livro> Livros { get; set; } = new List<Livro>();
     }
 }
