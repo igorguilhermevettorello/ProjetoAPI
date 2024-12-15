@@ -20,4 +20,8 @@
     <ProjectReference Include="..\ProjetoAPI.Domain\ProjetoAPI.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IGenericRepository\" />
+  </ItemGroup>
+
 </Project>

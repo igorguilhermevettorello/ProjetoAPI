@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using ProjetoAPI.Domain.Entities;
 using System.Reflection.Emit;
 
@@ -30,6 +31,8 @@ namespace ProjetoAPI.Infrastructure
                 .HasMany(l => l.Assuntos)
                 .WithMany(s => s.Livros)
                 .UsingEntity(j => j.ToTable("LivroAssunto"));
+
+            
         }
     }
 }

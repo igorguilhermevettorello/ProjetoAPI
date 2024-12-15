@@ -1,11 +1,5 @@
 ﻿using FluentValidation;
-using ProjetoAPI.Application.DTOs.Autor;
 using ProjetoAPI.Application.DTOs.Livro;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjetoAPI.Application.Validators.Livro
 {
@@ -28,17 +22,18 @@ namespace ProjetoAPI.Application.Validators.Livro
                 .NotEmpty().WithMessage("A edição é obrigatório.")
                 .GreaterThan(0).WithMessage("A edição deve ser maior que zero.");
 
-            RuleFor(x => x.AnoPublicao)
+            RuleFor(x => x.AnoPublicacao)
                 .NotEmpty().WithMessage("O ano de publicação é obrigatório.")
                 .GreaterThan(0).WithMessage("O ano de publicação deve ser maior que zero.");
 
-            //RuleFor(x => x.Valor)
-            //    .GreaterThan(0).WithMessage("O valor deve ser maior que zero.");
+            RuleFor(x => x.Valor)
+                .NotEmpty().WithMessage("O valor é obrigatório.")
+                .GreaterThan(0).WithMessage("O valor deve ser maior que zero.");
 
-            RuleFor(x => x.Autores)
+            RuleFor(x => x.AutorIds)
                 .NotEmpty().WithMessage("Pelo menos um autor deve ser informado.");
 
-            RuleFor(x => x.Assuntos)
+            RuleFor(x => x.AssuntoIds)
                 .NotEmpty().WithMessage("Pelo menos um assunto deve ser informado.");
 
         }

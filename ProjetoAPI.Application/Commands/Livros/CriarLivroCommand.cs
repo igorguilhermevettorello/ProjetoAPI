@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoAPI.Application.Commands.Livros
 {
-    public class CriarLivroCommand : IRequest<Guid>
+    public class CriarLivroCommand : IRequest<RetornoCriarLivroDto>
     {
         public CriarLivroDto LivroDto { get; }
 
