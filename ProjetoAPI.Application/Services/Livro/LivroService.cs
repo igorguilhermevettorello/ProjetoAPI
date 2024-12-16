@@ -2,7 +2,9 @@
 using ProjetoAPI.Domain.Entities;
 using ProjetoAPI.Domain.Interfaces.Assunto;
 using ProjetoAPI.Domain.Interfaces.Livro;
+using ProjetoAPI.Infrastructure;
 using ProjetoAPI.Infrastructure.Repositories.Livro;
+using System;
 
 namespace ProjetoAPI.Application.Services.Livro
 {
@@ -10,11 +12,18 @@ namespace ProjetoAPI.Application.Services.Livro
     {
         private readonly IAssuntoRepository _assuntoRepository;
         private readonly IAutorRepository _autorRepository;
-
-        public LivroService(IAssuntoRepository assuntoRepository, IAutorRepository autorRepository)
+        private readonly ApplicationDbContext _context;
+        public LivroService(IAssuntoRepository assuntoRepository, IAutorRepository autorRepository, ApplicationDbContext context)
         {
             _assuntoRepository = assuntoRepository;
             _autorRepository = autorRepository;
+            _context = context;
+        }
+
+        public async Task<IEnumerable<ViewRelatorio>> BuscarDadosParaRelatorio()
+        {
+            var result = await _context.Set<ViewRelatorio>().ToListAsync();
+            return result;
         }
 
         public async Task<bool> ValidarAssuntos(List<Guid> assuntoIds)

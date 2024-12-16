@@ -26,13 +26,14 @@ namespace ProjetoAPI.Infrastructure
                 .WithMany(a => a.Livros)
                 .UsingEntity(j => j.ToTable("LivroAutor"));
 
-            // Configuração Many-to-Many Livro <-> Assunto
             builder.Entity<Livro>()
                 .HasMany(l => l.Assuntos)
                 .WithMany(s => s.Livros)
                 .UsingEntity(j => j.ToTable("LivroAssunto"));
 
-            
+            builder.Entity<ViewRelatorio>()
+                .ToView("view_relatorio")
+                .HasKey(v => v.LivroId);
         }
     }
 }
